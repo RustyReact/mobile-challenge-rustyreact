@@ -23,14 +23,16 @@ class WelcomeScreen extends React.Component {
     async componentDidMount() {
         await fetch('https://data.nasa.gov/resource/y77d-th95.json')
             .then(response => response.json() )
-            .then(data => {
+            .then(async data => {
+                // await this.setState({fav : data})
                 this.setState({user : data})
                 this.setState({filteredData : data})                
             } )
             .catch(error => console.log(error));
         const fav = await AsyncStorage.getItem('@fav'); 
-        this.setState({fav : JSON.parse(fav)})
-        console.log(this.state.fav);
+        if(fav != null){
+            this.setState({fav : JSON.parse(fav)})
+        }
         this.setState({isLoading : false});
     }
     async searchVal(searchText){
@@ -44,8 +46,12 @@ class WelcomeScreen extends React.Component {
     }
 
     async fav(item) {
-        let ind = this.state.fav.findIndex(obj => obj.id === item.id)
-        const currentScores = this.state.fav;
+        let ind = -1;
+        let currentScores = "";
+        if(this.state.fav != null){
+            let ind = this.state.fav.findIndex(obj => obj.id === item.id)
+            currentScores = this.state.fav;
+        }
         if(ind >= 0){
             const newScores = currentScores.filter((obj) =>obj.id !== item.id);
             await this.setState({ fav: newScores }, function(){
@@ -96,6 +102,10 @@ class WelcomeScreen extends React.Component {
                                 source={{uri : 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png'}}
                                 style={{width : 20, height : 20}}
                             />
+                        // : <Image
+                        //     source={{uri : 'https://icons-for-free.com/iconfiles/png/512/heart+like+love+valentine+icon-1320084901929215407.png'}}
+                        //     style={{width : 20, height : 20}}
+                        // />
                         }
                     </TouchableOpacity>
                 </View>
