@@ -102,10 +102,6 @@ class WelcomeScreen extends React.Component {
                                 source={{uri : 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png'}}
                                 style={{width : 20, height : 20}}
                             />
-                        // : <Image
-                        //     source={{uri : 'https://icons-for-free.com/iconfiles/png/512/heart+like+love+valentine+icon-1320084901929215407.png'}}
-                        //     style={{width : 20, height : 20}}
-                        // />
                         }
                     </TouchableOpacity>
                 </View>
